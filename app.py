@@ -40,22 +40,11 @@ def get_automation_runas_token(runas_connection):
     # Return the token
     return azure_credential.get('accessToken')
 
-# Authenticate to Azure using the Azure Automation RunAs service principal
-
-
-
-
-#machineListUrl = "https://management.azure.com/subscriptions/1e4f30e0-ba75-4721-ad01-092454a46d8b/resourceGroups/EssAstPrdWu2RgMgmt01/providers/Microsoft.Automation/automationAccounts/PrdAstWu2Automation01/softwareUpdateConfigurationMachineRuns?api-version=2017-05-15-preview&$filter=properties/softwareUpdateConfiguration/name eq 'L-NPE-UTC-SCHEDULE-01'"
-#machineList = requests.get(machineListUrl, headers=headers).json()
-#for machine in machineList['value']:
-#	print machine['properties']['softwareUpdateConfiguration']['name']
-
 @app.route("/")
 def hello():
-	automation_runas_connection = automationassets.get_automation_connection("AzureRunAsConnection")
-	access_token = get_automation_runas_token(automation_runas_connection)
-	headers = {"Authorization": 'Bearer ' + access_token}
-    #return "Hello, World!"
+    automation_runas_connection = automationassets.get_automation_connection("AzureRunAsConnection")
+    access_token = get_automation_runas_token(automation_runas_connection)
+    headers = {"Authorization": 'Bearer ' + access_token}
     machineListUrl = "https://management.azure.com/subscriptions/1e4f30e0-ba75-4721-ad01-092454a46d8b/resourceGroups/EssAstPrdWu2RgMgmt01/providers/Microsoft.Automation/automationAccounts/PrdAstWu2Automation01/softwareUpdateConfigurationMachineRuns?api-version=2017-05-15-preview&$filter=properties/softwareUpdateConfiguration/name eq 'L-NPE-UTC-SCHEDULE-01'"
     machineList = requests.get(machineListUrl, headers=headers).json()
     return machineList
