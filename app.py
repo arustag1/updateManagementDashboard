@@ -40,6 +40,7 @@ def get_automation_runas_token(runas_connection):
     # Return the token
     return azure_credential.get('accessToken')
 
+
 @app.route("/")
 def hello():
     automation_runas_connection = automationassets.get_automation_connection("AzureRunAsConnection")
